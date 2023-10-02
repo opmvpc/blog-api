@@ -1,16 +1,15 @@
 import { useStorage } from '#imports';
-import { Personnes } from './types';
 
 export default defineEventHandler(async (event) => {
   const id = event.context.params.id;
-  const personnes: Personnes = await useStorage('assets:server').getItem(
-    `db/personnes.json`
+  const articles = await useStorage('assets:server').getItem(
+    `db/articles.json`
   );
 
-  const personne = personnes.find((p) => p.id === Number.parseInt(id));
+  const article = articles.find((p) => p.id === Number.parseInt(id));
 
-  if (!personne) {
+  if (!article) {
     return new Error('person not found');
   }
-  return personne;
+  return article;
 });
